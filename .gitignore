@@ -263,3 +263,5 @@ __pycache__/
 Thumbs.db
 tempkey.rsa
 tempkey.jwk
+
+appsettings.json
