@@ -1,0 +1,30 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Api.Data;
+using Api.Interfaces;
+using Api.Services;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+
+namespace Api.Extensions
+{
+    public static class ApplicationServiceExtensions
+    {
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
+        {
+            services.AddDbContext<DataContext>(options => {
+                options.UseSqlite(config.GetConnectionString("DefaultConnection"));
+            });
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPIv5", Version = "v1" });
+            }); 
+            
+            services.AddScoped<ITokenService, TokenService>();
+
+            return services;
+        }
+    }
+}
