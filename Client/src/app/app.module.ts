@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NavComponent } from './components/nav/nav.component';
+import { NavComponent } from './_components/nav/nav.component';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
