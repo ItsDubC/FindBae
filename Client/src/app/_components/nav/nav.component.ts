@@ -28,4 +28,8 @@ export class NavComponent implements OnInit {
       alert(error.error);
     })
   }
+
+  logout() {
+    this.isLoggedIn = false;
+  }
 }
