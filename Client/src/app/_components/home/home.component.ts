@@ -25,4 +25,10 @@ export class HomeComponent implements OnInit {
       this.users = result;
     })
   }
+
+  cancelRegisterMode(event: boolean) {
+    if (event) {
+      this.registerMode = false;
+    }
+  }
 }
