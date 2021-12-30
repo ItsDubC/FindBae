@@ -15,13 +15,13 @@ export class NavComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getCurrentUser();
   }
 
   login() {
-    console.log(this.model);
-
     this.accountService.login(this.model).subscribe((result: any) => {
       alert(result.username + ' logged in successfully');
+      //console.log(result);
       this.isLoggedIn = true;
     },
     error => {
@@ -31,5 +31,14 @@ export class NavComponent implements OnInit {
 
   logout() {
     this.isLoggedIn = false;
+    this.accountService.logout();
+  }
+
+  getCurrentUser() {
+    this.accountService.currentUser$.subscribe(user => {
+      this.isLoggedIn = !!user;
+    }, error => {
+      console.log(error);
+    })
   }
 }
