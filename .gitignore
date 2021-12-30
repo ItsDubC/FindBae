@@ -265,3 +265,6 @@ tempkey.rsa
 tempkey.jwk
 
 appsettings.json
+
+*.db-shm
+*.db-wal
