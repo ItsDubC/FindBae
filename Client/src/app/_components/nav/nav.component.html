@@ -1,19 +1,19 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="#">Find Bae</a>
+        <a class="navbar-brand" [routerLink]="['/']" routerLinkActive="router-link-active" >Find Bae</a>
         <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button> -->
         <!-- <div class="collapse navbar-collapse" id="navbarCollapse"> -->
           <ul class="navbar-nav mr-auto" *ngIf="accountService.currentUser$ | async">
             <li class="nav-item">
-              <a class="nav-link" href="#">Matches</a>
+              <a class="nav-link" [routerLink]="['/members']" routerLinkActive="router-link-active" >Meat Market</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Lists</a>
+              <a class="nav-link" [routerLink]="['/lists']" routerLinkActive="router-link-active" >Lists</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link">Messages</a>
+              <a class="nav-link" [routerLink]="['/messages']" routerLinkActive="router-link-active" >DMs</a>
             </li>
           </ul>
 
