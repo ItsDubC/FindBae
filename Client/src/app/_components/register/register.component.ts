@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AccountService } from 'src/app/_services/account.service';
 
 @Component({
@@ -11,7 +13,9 @@ export class RegisterComponent implements OnInit {
   model: any = {};
 
   constructor(
-    private accountService: AccountService
+    private accountService: AccountService,
+    private router: Router,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -20,7 +24,12 @@ export class RegisterComponent implements OnInit {
   register() {
     console.log(this.model);
     this.accountService.register(this.model).subscribe(result => {
-      alert('Registration successful.  Welcome ' + result.username);
+      //alert('Registration successful.  Welcome ' + result.username);
+      this.toastr.success(`Registration successful.  Welcome ${result.username}!`);
+      this.router.navigateByUrl('/members')
+    }, error => {
+      console.log(error);
+      this.toastr.error(error.error, "Error");
     })
   }
 
