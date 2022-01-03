@@ -8,14 +8,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './_components/nav/nav.component';
 import { FormsModule } from '@angular/forms';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { HomeComponent } from './_components/home/home.component';
 import { RegisterComponent } from './_components/register/register.component';
 import { MemberListComponent } from './_components/members/member-list/member-list.component';
 import { MemberDetailComponent } from './_components/members/member-detail/member-detail.component';
 import { MessagesComponent } from './_components/messages/messages.component';
 import { ListsComponent } from './_components/lists/lists.component'
-import { ToastrModule } from 'ngx-toastr';
+import { ThirdPartyModule } from './_modules/third-party.module';
+import { TitleCasePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -34,12 +34,9 @@ import { ToastrModule } from 'ngx-toastr';
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
-    BsDropdownModule.forRoot(),
-    ToastrModule.forRoot({
-      positionClass: 'toast-top-right'
-    })
+    ThirdPartyModule
   ],
-  providers: [],
+  providers: [TitleCasePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

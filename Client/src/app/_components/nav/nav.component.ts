@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/_models/user';
 import { AccountService } from 'src/app/_services/account.service';
+import { TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-nav',
@@ -16,7 +17,8 @@ export class NavComponent implements OnInit {
   constructor(
     public accountService: AccountService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private titleCasePipe: TitleCasePipe
   ) { }
 
   ngOnInit(): void { }
@@ -24,7 +26,7 @@ export class NavComponent implements OnInit {
   login() {
     this.accountService.login(this.model).subscribe((result: any) => {
       //alert(result.username + ' logged in successfully');
-      this.toastr.success(`Welcome back, ${result.username}!`, "Success");
+      this.toastr.success(`Welcome back, ${this.titleCasePipe.transform(result.username)}!`, "Success");
       this.router.navigateByUrl('/members');
     },
     error => {
