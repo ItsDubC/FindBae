@@ -20,6 +20,9 @@
             <li class="nav-item">
               <a class="nav-link" [routerLink]="['/members']" routerLinkActive="router-link-active" >Halp!</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/errors']" routerLinkActive="router-link-active" >Test Errors</a>
+            </li>
           </ul>
 
           <div dropdown class="dropdown" *ngIf="(accountService.currentUser$ | async) as user">

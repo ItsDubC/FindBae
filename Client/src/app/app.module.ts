@@ -16,6 +16,7 @@ import { MessagesComponent } from './_components/messages/messages.component';
 import { ListsComponent } from './_components/lists/lists.component'
 import { ThirdPartyModule } from './_modules/third-party.module';
 import { TitleCasePipe } from '@angular/common';
+import { TestErrorsComponent } from './_components/errors/test-errors/test-errors.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { TitleCasePipe } from '@angular/common';
     MemberListComponent,
     MemberDetailComponent,
     MessagesComponent,
-    ListsComponent
+    ListsComponent,
+    TestErrorsComponent
   ],
   imports: [
     BrowserModule,
