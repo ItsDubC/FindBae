@@ -19,6 +19,7 @@ import { TitleCasePipe } from '@angular/common';
 import { TestErrorsComponent } from './_components/errors/test-errors/test-errors.component';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { NotFoundComponent } from './_components/errors/not-found/not-found.component';
+import { ServerErrorComponent } from './_components/errors/server-error/server-error.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { NotFoundComponent } from './_components/errors/not-found/not-found.comp
     MessagesComponent,
     ListsComponent,
     TestErrorsComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    ServerErrorComponent
   ],
   imports: [
     BrowserModule,
