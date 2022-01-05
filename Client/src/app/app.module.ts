@@ -18,6 +18,7 @@ import { ThirdPartyModule } from './_modules/third-party.module';
 import { TitleCasePipe } from '@angular/common';
 import { TestErrorsComponent } from './_components/errors/test-errors/test-errors.component';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
+import { NotFoundComponent } from './_components/errors/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ErrorInterceptor } from './_interceptors/error.interceptor';
     MemberDetailComponent,
     MessagesComponent,
     ListsComponent,
-    TestErrorsComponent
+    TestErrorsComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

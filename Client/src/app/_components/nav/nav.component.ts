@@ -28,10 +28,6 @@ export class NavComponent implements OnInit {
       //alert(result.username + ' logged in successfully');
       this.toastr.success(`Welcome back, ${this.titleCasePipe.transform(result.username)}!`, "Success");
       this.router.navigateByUrl('/members');
-    },
-    error => {
-      console.log(error.error);
-      this.toastr.error(error.error, "Error")
     })
   }
 
