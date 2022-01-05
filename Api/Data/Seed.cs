@@ -8,7 +8,7 @@ namespace Api.Data
 {
     public class Seed
     {
-        private static readonly string UserPassword = "p@ssword";
+        private static readonly string UserPassword = "Pa$$w0rd";
 
         public static async Task SeedUsers(DataContext context)
         {
