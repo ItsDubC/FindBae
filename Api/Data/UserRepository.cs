@@ -16,6 +16,11 @@ namespace Api.Data
             this._context = context;
         }
 
+        public async Task<IEnumerable<AppUser>> GetUsersAsync()
+        {
+            return await _context.Users.ToListAsync();
+        }
+
         public async Task<AppUser> GetUserByIdAsync(int id)
         {
             return await _context.Users.FindAsync(id);
@@ -24,11 +29,6 @@ namespace Api.Data
         public async Task<AppUser> GetUserByUsernameAsync(string userName)
         {
             return await _context.Users.SingleOrDefaultAsync(x => x.UserName == userName.ToLower());
-        }
-
-        public async Task<IEnumerable<AppUser>> GetUsersAsync()
-        {
-            return await _context.Users.ToListAsync();
         }
 
         public async Task<bool> SaveAllAsync()
