@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Api.Data;
+using Api.Helpers;
 using Api.Interfaces;
 using Api.Services;
 using Microsoft.EntityFrameworkCore;
@@ -21,7 +22,8 @@ namespace Api.Extensions
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPIv5", Version = "v1" });
             }); 
-            
+            services.AddAutoMapper(typeof(AutoMapperProfiles));
+
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUserRepository, UserRepository>();
 
