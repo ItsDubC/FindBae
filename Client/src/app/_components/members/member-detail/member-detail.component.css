@@ -18,3 +18,8 @@
     margin-top: -3px;
     padding: 15px 0;
 }
+
+.ngx-gallery {
+    display: inline-block;
+    margin-bottom: 20px;
+}
