@@ -20,7 +20,6 @@ export class AuthGuard implements CanActivate {
   canActivate(): Observable<boolean> {
     return this.accountService.currentUser$.pipe(
       map(user => {
-        //return (user != null);
         if (user) return true;
 
         this.toastr.error("Nope, you gotta log in first", "Denied");
