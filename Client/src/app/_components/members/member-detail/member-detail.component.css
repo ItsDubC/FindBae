@@ -13,3 +13,8 @@
     padding: 10px 15px;
     border-top: none;
 }
+
+.member-tab {
+    margin-top: -3px;
+    padding: 15px 0;
+}
