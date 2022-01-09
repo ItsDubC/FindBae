@@ -6,6 +6,7 @@ import { TestErrorsComponent } from './_components/errors/test-errors/test-error
 import { HomeComponent } from './_components/home/home.component';
 import { ListsComponent } from './_components/lists/lists.component';
 import { MemberDetailComponent } from './_components/members/member-detail/member-detail.component';
+import { MemberEditComponent } from './_components/members/member-edit/member-edit.component';
 import { MemberListComponent } from './_components/members/member-list/member-list.component';
 import { MessagesComponent } from './_components/messages/messages.component';
 import { AuthGuard } from './_guards/auth.guard';
@@ -19,6 +20,7 @@ const routes: Routes = [
     children: [
       { path: 'members', component: MemberListComponent },
       { path: 'member/:username', component: MemberDetailComponent },
+      { path: 'member-edit', component: MemberEditComponent },
       { path: 'lists', component: ListsComponent },
       { path: 'messages', component: MessagesComponent }
     ]
