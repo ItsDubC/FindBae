@@ -10,6 +10,20 @@ export class BusyService {
   constructor(private spinnerService: NgxSpinnerService) { }
 
   busy() {
-    
+    this.busyRequestCount++;
+    this.spinnerService.show(undefined, {
+      type: 'ball-circus',
+      bdColor: 'rgba(255, 255, 255, 0)',
+      color: '#ffffff'
+    });
+  }
+
+  idle() {
+    this.busyRequestCount--;
+
+    if (this.busyRequestCount < 0) 
+      this.busyRequestCount = 0;
+
+    this.spinnerService.hide();
   }
 }
