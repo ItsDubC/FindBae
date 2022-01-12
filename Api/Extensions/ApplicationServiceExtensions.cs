@@ -27,6 +27,8 @@ namespace Api.Extensions
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUserRepository, UserRepository>();
 
+            services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
+
             return services;
         }
     }
