@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Api.Data;
 using Api.DTOs;
 using Api.Entities;
+using Api.Extensions;
 using Api.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -19,9 +20,11 @@ namespace Api.Controllers
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
+        private readonly IPhotoService _photoService;
 
-        public UsersController(IUserRepository userRepository, IMapper mapper)
+        public UsersController(IUserRepository userRepository, IMapper mapper, IPhotoService photoService)
         {
+            this._photoService = photoService;
             this._mapper = mapper;
             _userRepository = userRepository;
         }
@@ -59,8 +62,8 @@ namespace Api.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userName = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                var user = await _userRepository.GetUserByUsernameAsync(userName);
+                var username = User.GetUsername();
+                var user = await _userRepository.GetUserByUsernameAsync(username);
 
                 _mapper.Map(memberUpdate, user);
                 _userRepository.Update(user);
@@ -70,6 +73,32 @@ namespace Api.Controllers
             }
 
             return BadRequest();
+        }
+
+        [HttpPost("add-photo")]
+        public async Task<ActionResult<PhotoDto>> AddPhoto(IFormFile file)
+        {
+            var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+            var result = await _photoService.AddPhotoAsync(file);
+
+            if (result.Error != null)
+                return BadRequest(result.Error.Message);
+
+            var photo = new Photo
+            {
+                Url = result.SecureUrl.AbsoluteUri,
+                PublicId = result.PublicId
+            };
+
+            if (user.Photos.Count == 0)
+                photo.IsPrimary = true;
+            
+            user.Photos.Add(photo);
+
+            if (await _userRepository.SaveAllAsync())
+                return _mapper.Map<PhotoDto>(photo);
+
+            return BadRequest("Can't upload photo for some reason :(");
         }
     }
 }
