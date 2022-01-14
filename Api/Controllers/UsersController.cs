@@ -46,7 +46,7 @@ namespace Api.Controllers
         //     return await _userRepository.GetUserByIdAsync(id);
         // }
 
-        [HttpGet("{username}")]
+        [HttpGet("{username}", Name = "GetUser")]
         public async Task<ActionResult<MemberDto>> GetUser(string userName)
         {
             return await _userRepository.GetMemberAsync(userName);
@@ -92,11 +92,13 @@ namespace Api.Controllers
 
             if (user.Photos.Count == 0)
                 photo.IsPrimary = true;
-            
+
             user.Photos.Add(photo);
 
             if (await _userRepository.SaveAllAsync())
-                return _mapper.Map<PhotoDto>(photo);
+            {
+                return CreatedAtRoute("GetUser", new { username = user.UserName }, _mapper.Map<PhotoDto>(photo));
+            }
 
             return BadRequest("Can't upload photo for some reason :(");
         }
