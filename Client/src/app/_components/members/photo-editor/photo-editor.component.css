@@ -2,6 +2,7 @@ img.img-thumbnail {
     height: 100 px;
     min-width: 100px !important;
     margin-bottom: 2px;
+    border: none;
 }
 
 .nv-file-over {
