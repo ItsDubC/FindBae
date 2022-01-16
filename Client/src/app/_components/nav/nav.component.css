@@ -1,4 +1,5 @@
-.dropdown-toggle, .dropdown-item {
+.dropdown-toggle,
+.dropdown-item {
     cursor: pointer;
 }
 
@@ -7,5 +8,11 @@ a {
 }
 
 nav {
-    background-color: rgba(255,255,255,0.1);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+img {
+    max-height: 50px;
+    display: inline;
+    clip-path: circle(25px at center);
 }
