@@ -264,7 +264,7 @@ Thumbs.db
 tempkey.rsa
 tempkey.jwk
 
-appsettings.json
+appsettings*.json
 
 *.db-shm
 *.db-wal

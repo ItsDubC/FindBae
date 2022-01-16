@@ -48,4 +48,8 @@ export class MemberService {
   setPrimaryPhoto(photoId: number) {
     return this.http.put(`${this.baseUrl}users/set-primary-photo/${photoId}`, {});
   }
+
+  deletePhoto(photoId: number) {
+    return this.http.delete(`${this.baseUrl}users/delete-photo/${photoId}`);
+  }
 }
