@@ -12,6 +12,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Api.Controllers
 {
@@ -119,6 +120,35 @@ namespace Api.Controllers
             }
 
             return BadRequest("Can't upload photo for some reason :(");
+        }
+
+        [HttpDelete("delete-photo/{photoId}")]
+        public async Task<ActionResult> DeletePhoto(int photoId)
+        {
+            var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+
+            var photo = user.Photos.FirstOrDefault(x => x.Id == photoId);
+
+            if (photo == null)
+                return NotFound();
+
+            if (photo.IsPrimary)
+                return BadRequest("Can't delete your primary photo");
+
+            if (!string.IsNullOrWhiteSpace(photo.PublicId))
+            {
+                var result = await _photoService.DeletePhotoAsync(photo.PublicId);
+
+                if (result.Error != null)
+                    return BadRequest(result.Error.Message);
+            }
+
+            user.Photos.Remove(photo);
+
+            if (await _userRepository.SaveAllAsync())
+                return Ok();
+
+            return BadRequest("Can't delete photo  :(");
         }
     }
 }
