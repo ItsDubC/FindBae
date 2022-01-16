@@ -75,6 +75,24 @@ namespace Api.Controllers
             return BadRequest();
         }
 
+        [HttpPut("set-primary-photo/{photoId}")]
+        public async Task<ActionResult> SetPrimaryPhoto(int photoId)
+        {
+            var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+            
+            foreach (var photo in user.Photos)
+            {
+                photo.IsPrimary = false;
+            }
+
+            user.Photos.FirstOrDefault(x => x.Id == photoId).IsPrimary = true;
+
+            if (await _userRepository.SaveAllAsync())
+                return NoContent();
+            
+            return BadRequest("Ack, couldn't set primary photo");
+        }
+
         [HttpPost("add-photo")]
         public async Task<ActionResult<PhotoDto>> AddPhoto(IFormFile file)
         {

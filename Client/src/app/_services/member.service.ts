@@ -44,4 +44,8 @@ export class MemberService {
       })
     )
   }
+
+  setPrimaryPhoto(photoId: number) {
+    
+  }
 }
