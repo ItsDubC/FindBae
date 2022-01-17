@@ -1,0 +1,23 @@
+<div class="form-group">
+    <input
+        [class.is-invalid]="ngControl.touched && ngControl.invalid"
+        [formControl]="ngControl.control"
+        class="form-control" 
+        type={{type}}
+        placeholder={{label}}>
+    <div *ngIf="ngControl.control.errors?.required" class="invalid-feedback">
+        {{label}} is required
+    </div>
+    <div *ngIf="ngControl.control.errors?.minlength" class="invalid-feedback">
+        {{label}} must be at least {{ngControl.control.errors.minlength['requiredLength']}} characters
+    </div>
+    <div *ngIf="ngControl.control.errors?.maxlength" class="invalid-feedback">
+        {{label}} must be at least {{ngControl.control.errors.maxlength['requiredLength']}} characters
+    </div>
+    <div *ngIf="ngControl.control.errors?.isMatching" class="invalid-feedback">
+        Passwords don't match
+    </div>
+    <!-- <div *ngIf="registerForm.get('confirmPassword').hasError('isMatching')" class="invalid-feedback">
+        Password and confirm password need to match
+    </div> -->
+</div>
