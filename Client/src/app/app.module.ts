@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './_components/nav/nav.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './_components/home/home.component';
 import { RegisterComponent } from './_components/register/register.component';
 import { MemberListComponent } from './_components/members/member-list/member-list.component';
@@ -49,6 +49,7 @@ import { PhotoEditorComponent } from './_components/members/photo-editor/photo-e
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     ThirdPartyModule
   ],
   providers: [
