@@ -3,8 +3,26 @@
     <hr>
     <div class="container">
         <app-text-input [formControl]="registerForm.controls['username']" [label]="'Username'"></app-text-input>
-        <app-text-input [formControl]="registerForm.controls['password']" [label]="'Password'" [type]="'password'"></app-text-input>
-        <app-text-input [formControl]="registerForm.controls['confirmPassword']" [label]="'Confirm Password'" [type]="'password'"></app-text-input>
+        <app-text-input [formControl]="registerForm.controls['knownAs']" [label]="'Nick Name'"></app-text-input>
+        <div class="form-group">
+            <label class="control-label">I identify as:</label>
+            <label class="radio-inline">
+                <input type="radio" value='female' formControlName="gender" class="ml-3"> Woman
+            </label>
+            <label class="radio-inline">
+                <input type="radio" value='male' formControlName="gender" class="ml-3"> Man
+            </label>
+            <label class="radio-inline">
+                <input type="radio" value='non-binary' formControlName="gender" class="ml-3"> Non-binary
+            </label>
+        </div>
+        <app-text-input [formControl]="registerForm.controls['dateOfBirth']" [label]="'Date of Birth'"></app-text-input>
+        <app-text-input [formControl]="registerForm.controls['city']" [label]="'City'"></app-text-input>
+        <app-text-input [formControl]="registerForm.controls['country']" [label]="'Country'"></app-text-input>
+        <app-text-input [formControl]="registerForm.controls['password']" [label]="'Password'" [type]="'password'">
+        </app-text-input>
+        <app-text-input [formControl]="registerForm.controls['confirmPassword']" [label]="'Confirm Password'"
+                        [type]="'password'"></app-text-input>
         <div class="form-group text-center">
             <button type="submit" class="btn btn-success mr-2">
                 Register
