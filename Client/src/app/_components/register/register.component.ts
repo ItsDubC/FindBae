@@ -11,9 +11,10 @@ import { AccountService } from 'src/app/_services/account.service';
 })
 export class RegisterComponent implements OnInit {
     @Output() cancelRegisterClicked: EventEmitter<any> = new EventEmitter();
-    model: any = {};
+    //model: any = {};
     registerForm: FormGroup;
     maxDate: Date;
+    validationErrors: string[] = [];
 
     constructor(
         private accountService: AccountService,
@@ -61,16 +62,14 @@ export class RegisterComponent implements OnInit {
     }
 
     register() {
-        console.log(this.registerForm.value);
-        // console.log(this.model);
-        // this.accountService.register(this.model).subscribe(result => {
-        //   //alert('Registration successful.  Welcome ' + result.username);
-        //   this.toastr.success(`Registration successful.  Welcome ${result.username}!`);
-        //   this.router.navigateByUrl('/members')
-        // }, error => {
-        //   console.log(error);
-        //   this.toastr.error(error.error, "Error");
-        // })
+        this.accountService.register(this.registerForm.value).subscribe(result => {
+          this.toastr.success(`Registration successful.  Welcome ${result.username}!`);
+          this.router.navigateByUrl('/members')
+        }, error => {
+          console.log(error);
+          //this.toastr.error(error.error, "Error");
+          this.validationErrors = error;
+        })
     }
 
     cancel() {
