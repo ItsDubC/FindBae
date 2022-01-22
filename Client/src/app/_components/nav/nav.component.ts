@@ -25,7 +25,6 @@ export class NavComponent implements OnInit {
 
   login() {
     this.accountService.login(this.model).subscribe((result: any) => {
-      //alert(result.username + ' logged in successfully');
       this.toastr.success(`Welcome back, ${this.titleCasePipe.transform(result.username)}!`, "Success");
       this.router.navigateByUrl('/members');
     })
@@ -34,5 +33,8 @@ export class NavComponent implements OnInit {
   logout() {
     this.accountService.logout();
     this.router.navigateByUrl('');
+
+    this.model.username = '';
+    this.model.password = '';
   }
 }
