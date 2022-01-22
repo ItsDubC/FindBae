@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using Api.Helpers;
 
 namespace Api.Controllers
 {
@@ -31,14 +32,20 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers([FromQuery] UserParams userParams)
         {
-            return Ok(await _userRepository.GetMembersAsync());
+            var users = await _userRepository.GetMembersAsync(userParams);
 
-            // var users = await _userRepository.GetUsersAsync();
-            // var members = _mapper.Map<IEnumerable<MemberDto>>(users);
+            Response.AddPaginationHeader(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);
 
-            // return Ok(members);
+            return Ok(users);
+
+            // return Ok(await _userRepository.GetMembersAsync(userParams));
+
+            // // var users = await _userRepository.GetUsersAsync();
+            // // var members = _mapper.Map<IEnumerable<MemberDto>>(users);
+
+            // // return Ok(members);
         }
 
         // [HttpGet("{id}")]
