@@ -1,11 +1,13 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Member } from '../_models/member';
 import { PaginatedResult } from '../_models/pagination';
+import { User } from '../_models/user';
 import { UserParams } from '../_models/userParams';
+import { AccountService } from './account.service';
 
 @Injectable({
     providedIn: 'root'
@@ -14,8 +16,28 @@ export class MemberService {
     private readonly baseUrl = environment.apiUrl;
     members: Member[] = [];
     memberCache = new Map();
+    private userParams: UserParams;
+    user: User;
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient, private accountService: AccountService) { 
+        this.accountService.currentUser$.pipe(take(1)).subscribe(user => {
+            this.user = user;
+            this.userParams = new UserParams(user);
+        });
+    }
+
+    getUserParams() {
+        return this.userParams;
+    }
+
+    setUserParams(userParams: UserParams) {
+        this.userParams = userParams;
+    }
+    
+    resetUserParams() {
+        this.userParams = new UserParams(this.user);
+        return this.userParams;
+    }
 
     getMembers(userParams: UserParams) {
         var response = this.memberCache.get(Object.values(userParams).join("|"));
@@ -31,6 +53,8 @@ export class MemberService {
         params = params.append("maxAge", userParams.maxAge.toString());
         params = params.append("gender", userParams.gender);
         params = params.append("orderBy", userParams.orderBy);
+
+        this.userParams = userParams;
 
         return this.getPaginatedResult<Member[]>(this.baseUrl + 'users', params).pipe(
             map(response => {
