@@ -1,27 +1,23 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-default">
     <div class="container">
-        <a class="navbar-brand" [routerLink]="['/']" routerLinkActive="router-link-active">FindBae</a>
-        <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button> -->
-        <!-- <div class="collapse navbar-collapse" id="navbarCollapse"> -->
+        <a class="navbar-brand" [routerLink]="['/']" routerLinkActive="router-link-active"><i class="fa fa-heartbeat"></i> FindBae</a>
         <ul class="navbar-nav mr-auto">
             <ng-container *ngIf="accountService.currentUser$ | async">
                 <li class="nav-item">
-                    <a class="nav-link" [routerLink]="['/members']" routerLinkActive="router-link-active">Meat Market</a>
+                    <a class="nav-link" [routerLink]="['/members']" routerLinkActive="router-link-active"><i class="fa fa-users"></i> Meat Market</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" [routerLink]="['/lists']" routerLinkActive="router-link-active">Lists</a>
+                    <a class="nav-link" [routerLink]="['/lists']" routerLinkActive="router-link-active"><i class="fa fa-heart"></i> Likes</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" [routerLink]="['/messages']" routerLinkActive="router-link-active">DMs</a>
+                    <a class="nav-link" [routerLink]="['/messages']" routerLinkActive="router-link-active"><i class="fa fa-comment"></i> DMs</a>
                 </li>
             </ng-container>
             <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/members']" routerLinkActive="router-link-active">Halp!</a>
+                <a class="nav-link" [routerLink]="['/members']" routerLinkActive="router-link-active"><i class="fa fa-life-ring"></i> Halp!</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/errors']" routerLinkActive="router-link-active">Test Errors</a>
+                <a class="nav-link" [routerLink]="['/errors']" routerLinkActive="router-link-active"><i class="fa fa-bug"></i> Test Errors</a>
             </li>
         </ul>
 
