@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Api.DTOs;
 using Api.Entities;
 using Api.Extensions;
+using Api.Helpers;
 using Api.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -54,10 +55,16 @@ namespace Api.Controllers
             return BadRequest("DM failed");
         }
 
-        // [HttpGet]
-        // public async Task<ActionResult<MessageDto[]> GetMessages(int userId)
-        // {
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<MessageDto>>> GetMessagesForUser([FromQuery] MessageParams messageParams)
+        {
+            messageParams.Username = User.GetUsername();
 
-        // }
+            var messages = await _messageRepository.GetMessagesForUser(messageParams);
+
+            Response.AddPaginationHeader(messages.CurrentPage, messages.PageSize, messages.TotalCount, messages.TotalPages);
+
+            return Ok(messages);
+        }
     }
 }
