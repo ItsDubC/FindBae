@@ -57,11 +57,6 @@ namespace Api.Controllers
                 LikedUserId = likedUser.Id
             });
 
-            // _userRepository.Update(sourceUser);
-            // await _userRepository.SaveAllAsync();
-
-            // return Ok(); 
-
             if (await _userRepository.SaveAllAsync())
                 return Ok();
             
