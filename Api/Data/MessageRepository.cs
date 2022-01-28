@@ -54,13 +54,32 @@ namespace Api.Data
             return await PagedList<MessageDto>.CreateAsync(messageDtoQuery, messageParams.PageNumber, messageParams.PageSize);
         }
 
-        public async Task<IEnumerable<MessageDto>> GetMessageThread(int currentUserId, int recipientUserId)
+        public async Task<IEnumerable<MessageDto>> GetMessageThread(string currentUsername, string recipientUsername)
         {
-            throw new NotImplementedException();
-            // return await _context.Messages
-            //     .Where(x => x.SenderId == currentUserId && x.RecipientId == recipientUserId)
-            //     .OrderBy(x => x.DateRead)
-            //     .ToListAsync();
+            var messages =await  _context.Messages
+                .Include(x => x.Recipient).ThenInclude(x => x.Photos)
+                .Include(x => x.Sender).ThenInclude(x => x.Photos)
+                .Where(x => 
+                    (x.Recipient.UserName == currentUsername && x.Sender.UserName == recipientUsername) ||
+                    (x.Recipient.UserName == recipientUsername && x.Sender.UserName == currentUsername))
+                .OrderBy(x => x.MessageSent)
+                .ToListAsync();
+
+            var unreadMessages = messages
+                .Where(x => x.DateRead == null && x.Recipient.UserName == currentUsername)
+                .ToList();
+
+            if (unreadMessages.Any())
+            {
+                foreach (var m in unreadMessages)
+                {
+                    m.DateRead = DateTime.Now;
+                }
+
+                await _context.SaveChangesAsync();
+            }
+
+            return _mapper.Map<IEnumerable<MessageDto>>(messages);
         }
 
         public async Task<bool> SaveAllAsync()
