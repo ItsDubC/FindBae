@@ -28,11 +28,19 @@
         </ul>
     </div>
     <div class="card-footer">
-        <form action="">
+        <form (ngSubmit)="sendMessage()" #messageForm="ngForm" autocomplete="off">
             <div class="input-group">
-                <input type="text" class="form-control input-sm" placeholder="Send a DM">
+                <input 
+                    name="messageContent"
+                    required
+                    type="text" 
+                    class="form-control input-sm" 
+                    placeholder="Send a DM" 
+                    [(ngModel)]="messageContent">
                 <div class="input-group-append">
-                    <button class="btn btn-primary btn-sm" type="submit"><i class="fa fa-paper-plane"></i></button>
+                    <button class="btn btn-primary btn-sm" type="submit" [disabled]="!messageForm.valid">
+                        <i class="fa fa-paper-plane"></i>
+                    </button>
                 </div>
             </div>
         </form>
