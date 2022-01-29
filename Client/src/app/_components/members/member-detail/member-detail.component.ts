@@ -1,49 +1,71 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
+import { TabDirective, TabsetComponent } from 'ngx-bootstrap/tabs';
 import { Member } from 'src/app/_models/member';
+import { Message } from 'src/app/_models/message';
 import { MemberService } from 'src/app/_services/member.service';
+import { MessageService } from 'src/app/_services/message.service';
 
 @Component({
-  selector: 'app-member-detail',
-  templateUrl: './member-detail.component.html',
-  styleUrls: ['./member-detail.component.css']
+    selector: 'app-member-detail',
+    templateUrl: './member-detail.component.html',
+    styleUrls: ['./member-detail.component.css']
 })
 export class MemberDetailComponent implements OnInit {
-  member: Member;
-  galleryOptions: NgxGalleryOptions[];
-  galleryImages: NgxGalleryImage[];
+    @ViewChild("memberTabs") memberTabs: TabsetComponent;
 
-  constructor(
-    private memberService: MemberService,
-    private route: ActivatedRoute) { }
+    member: Member;
+    galleryOptions: NgxGalleryOptions[];
+    galleryImages: NgxGalleryImage[];
+    activeTab: TabDirective;
+    messages: Message[] = [];
 
-  ngOnInit(): void {
-    this.loadMember(this.route.snapshot.paramMap.get('username'));
-    this.initializeGallery();
-  }
+    constructor(
+        private memberService: MemberService,
+        private route: ActivatedRoute,
+        private messageService: MessageService) { }
 
-  loadMember(userName: string) {
-    this.memberService.getMember(userName).subscribe(result => {
-      this.member = result;
+    ngOnInit(): void {
+        this.loadMember(this.route.snapshot.paramMap.get('username'));
+        this.initializeGallery();
+    }
 
-      this.galleryImages = this.member.photos.map(p => new NgxGalleryImage({
-        small: p?.url,
-        medium: p?.url,
-        big: p?.url
-      }));
-    })
-  }
+    loadMember(userName: string) {
+        this.memberService.getMember(userName).subscribe(result => {
+            this.member = result;
 
-  initializeGallery() {
-    this.galleryOptions = [
-      {
-        width: '500px',
-        height: '500px',
-        thumbnailsColumns: 4,
-        imageAnimation: NgxGalleryAnimation.Slide,
-        preview: false
-      }
-    ]
-  }
+            this.galleryImages = this.member.photos.map(p => new NgxGalleryImage({
+                small: p?.url,
+                medium: p?.url,
+                big: p?.url
+            }));
+        })
+    }
+
+    initializeGallery() {
+        this.galleryOptions = [
+            {
+                width: '500px',
+                height: '500px',
+                thumbnailsColumns: 4,
+                imageAnimation: NgxGalleryAnimation.Slide,
+                preview: false
+            }
+        ]
+    }
+
+    onTabActivated(data: TabDirective) {
+        this.activeTab = data;
+
+        if (this.activeTab.heading === "DMs" && this.messages.length === 0) {
+            this.loadMessages();
+        }
+    }
+
+    loadMessages() {
+        this.messageService.getMessageThread(this.member.userName).subscribe(response => {
+            this.messages = response;
+        })
+    }
 }

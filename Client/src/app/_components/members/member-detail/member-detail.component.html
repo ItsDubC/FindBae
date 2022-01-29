@@ -29,22 +29,22 @@
         </div>
     </div>
     <div class="col-8">
-        <tabset type="pills" class="member-tabset">
-            <tab heading="About {{member.knownAs}}" customClass="member-tab">
+        <tabset type="pills" class="member-tabset" #memberTabs>
+            <tab heading="About {{member.knownAs}}" customClass="member-tab" (selectTab)="onTabActivated($event)">
                 <h4>Description</h4>
                 <p>{{member.introduction}}</p>
                 <h4>Looking For</h4>
                 <p>{{member.lookingFor}}</p>
             </tab>
-            <tab heading="Interests" customClass="member-tab">
+            <tab heading="Interests" customClass="member-tab" (selectTab)="onTabActivated($event)">
                 <h4>Interests</h4>
                 <p>{{member.interests}}</p>
             </tab>
-            <tab heading="Photos" customClass="member-tab">
+            <tab heading="Photos" customClass="member-tab" (selectTab)="onTabActivated($event)">
                 <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
             </tab>
-            <tab heading="DMs" customClass="member-tab">
-                <app-member-messages [username]="member.userName"></app-member-messages>
+            <tab heading="DMs" customClass="member-tab" (selectTab)="onTabActivated($event)">
+                <app-member-messages [messages]="messages"></app-member-messages>
             </tab>
         </tabset>
     </div>
