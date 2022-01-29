@@ -28,6 +28,11 @@ export class MemberDetailComponent implements OnInit {
 
     ngOnInit(): void {
         this.loadMember(this.route.snapshot.paramMap.get('username'));
+
+        this.route.queryParams.subscribe(params => {
+            params.tab ? this.selectTab(params.tab) : this.selectTab(0);
+        })
+
         this.initializeGallery();
     }
 
@@ -61,6 +66,10 @@ export class MemberDetailComponent implements OnInit {
         if (this.activeTab.heading === "DMs" && this.messages.length === 0) {
             this.loadMessages();
         }
+    }
+
+    selectTab(tabId: number) {
+        this.memberTabs.tabs[tabId].active = true;
     }
 
     loadMessages() {
