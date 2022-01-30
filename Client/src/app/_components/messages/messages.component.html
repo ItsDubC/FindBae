@@ -33,7 +33,7 @@
             *ngFor="let m of messages" 
             routerLink="{{container === 'Outbox' ? 
                 '/member/' + m.recipientUsername : 
-                '/member/' + m.senderusername}}"
+                '/member/' + m.senderUsername}}"
             [queryParams]="{tab: 3}">
             <td style="width: 40%">{{m.content}}</td>
             <td style="width: 20%">
@@ -54,7 +54,7 @@
             </td>
             <td style="width: 20%">{{ m.messageSent | timeago }}</td>
             <td style="width: 20%">
-                <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                <button class="btn btn-danger" (click)="$event.stopPropagation()" (click)="deleteMessage(m.id)"><i class="fa fa-trash"></i></button>
             </td>
         </tr>
     </table>
