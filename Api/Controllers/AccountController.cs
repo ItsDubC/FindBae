@@ -35,13 +35,8 @@ namespace Api.Controllers
                 return BadRequest("Username is already taken");
             }
 
-            using var hmac = new HMACSHA512();
-
             var user = _mapper.Map<AppUser>(registerUser);
-
             user.UserName = registerUser.Username.ToLower();
-            user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerUser.Password));
-            user.PasswordSalt = hmac.Key;
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
@@ -62,16 +57,6 @@ namespace Api.Controllers
 
             if (user == null)
                 return Unauthorized("Invalid username");
-            
-            using var hmac = new HMACSHA512(user.PasswordSalt);
-
-            var hash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginUser.Password));
-
-            for (int i = 0; i < hash.Length; i++)
-            {
-                if (hash[i] != user.PasswordHash[i])
-                    return Unauthorized("Invalid password");
-            }
 
             return new UserDto
             {
