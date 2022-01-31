@@ -2,6 +2,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using Api.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Api.Data
@@ -10,9 +11,9 @@ namespace Api.Data
     {
         private static readonly string UserPassword = "Pa$$w0rd";
 
-        public static async Task SeedUsers(DataContext context)
+        public static async Task SeedUsers(UserManager<AppUser> userManager)
         {
-            if (await context.Users.AnyAsync())
+            if (await userManager.Users.AnyAsync())
                 return;
 
             var userData = await System.IO.File.ReadAllTextAsync("Data/UserSeedData.json");
@@ -21,10 +22,8 @@ namespace Api.Data
             foreach (var user in users)
             {
                 user.UserName = user.UserName.ToLower();
-                context.Users.Add(user);
+                await userManager.CreateAsync(user, "Pa$$w0rd");
             }
-
-            await context.SaveChangesAsync();
         }
     }
 }

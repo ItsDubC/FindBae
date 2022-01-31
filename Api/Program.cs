@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Api.Data;
+using Api.Entities;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -15,8 +17,6 @@ namespace API
     {
         public static async Task Main(string[] args)
         {
-            // CreateHostBuilder(args).Build().Run();
-
             var host = CreateHostBuilder(args).Build();
             using var scope = host.Services.CreateScope();
             var services = scope.ServiceProvider;
@@ -25,7 +25,8 @@ namespace API
             {
                 var context = services.GetRequiredService<DataContext>();
                 await context.Database.MigrateAsync();
-                //await Seed.SeedUsers(context);
+                var userManager = services.GetRequiredService<UserManager<AppUser>>();
+                await Seed.SeedUsers(userManager);
             }
             catch (Exception ex)
             {
