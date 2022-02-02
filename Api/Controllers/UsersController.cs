@@ -44,20 +44,8 @@ namespace Api.Controllers
                 {
                     "male" => "female",
                     "female" => "male",
-                    _ => "non-binary"
+                    _ => "female" //"non-binary"  - we don't seed any non-binary users, so default this to female
                 };
-                // switch(user.Gender)
-                // {
-                //     case "male":
-                //         userParams.Gender = "female";
-                //         break;
-                //     case "female":
-                //         userParams.Gender = "male";
-                //         break;
-                //     default:
-                //         userParams.Gender = "non-binary";
-                //         break;
-                // }
             }
             
             var users = await _userRepository.GetMembersAsync(userParams);
@@ -65,30 +53,12 @@ namespace Api.Controllers
             Response.AddPaginationHeader(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);
 
             return Ok(users);
-
-            // return Ok(await _userRepository.GetMembersAsync(userParams));
-
-            // // var users = await _userRepository.GetUsersAsync();
-            // // var members = _mapper.Map<IEnumerable<MemberDto>>(users);
-
-            // // return Ok(members);
         }
-
-        // [HttpGet("{id}")]
-        // public async Task<ActionResult<AppUser>> GetUser(int id)
-        // {
-        //     return await _userRepository.GetUserByIdAsync(id);
-        // }
 
         [HttpGet("{username}", Name = "GetUser")]
         public async Task<ActionResult<MemberDto>> GetUser(string userName)
         {
             return await _userRepository.GetMemberAsync(userName);
-
-            // var user = await _userRepository.GetUserByUsernameAsync(userName);
-            // var member = _mapper.Map<MemberDto>(user);
-
-            // return member;
         }
 
         [HttpPut()]
