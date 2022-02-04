@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdminPanelComponent } from './_components/admin/admin-panel/admin-panel.component';
 import { NotFoundComponent } from './_components/errors/not-found/not-found.component';
 import { ServerErrorComponent } from './_components/errors/server-error/server-error.component';
 import { TestErrorsComponent } from './_components/errors/test-errors/test-errors.component';
@@ -24,7 +25,8 @@ const routes: Routes = [
       { path: 'member/:username', component: MemberDetailComponent, resolve: {member: MemberDetailedResolver} },
       { path: 'member-edit', component: MemberEditComponent, canDeactivate: [ PreventUnsavedChangesGuard ] },
       { path: 'lists', component: ListsComponent },
-      { path: 'messages', component: MessagesComponent }
+      { path: 'messages', component: MessagesComponent },
+      { path: 'admin', component: AdminPanelComponent }
     ]
   },
   { path: 'errors', component: TestErrorsComponent },
