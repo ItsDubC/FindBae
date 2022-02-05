@@ -19,6 +19,7 @@ export class AdminGuard implements CanActivate {
                 }
 
                 this.toastr.error("Sorry, Admins and Mods only");
+                return false;
             })
         );
     }

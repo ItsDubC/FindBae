@@ -12,10 +12,10 @@
                 <li class="nav-item">
                     <a class="nav-link" [routerLink]="['/messages']" routerLinkActive="router-link-active"><i class="fa fa-comment"></i> DMs</a>
                 </li>
+                <li *appHasRole="['Admin','Moderator']" class="nav-item">
+                    <a class="nav-link" [routerLink]="['/admin']" routerLinkActive="router-link-active"><i class="fa fa-shield"></i> Admin</a>
+                </li>
             </ng-container>
-            <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/admin']" routerLinkActive="router-link-active"><i class="fa fa-life-ring"></i> Admin</a>
-            </li>
             <li class="nav-item">
                 <a class="nav-link" [routerLink]="['/errors']" routerLinkActive="router-link-active"><i class="fa fa-bug"></i> Test Errors</a>
             </li>
