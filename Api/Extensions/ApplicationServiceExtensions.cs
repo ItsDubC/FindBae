@@ -6,6 +6,7 @@ using Api.Data;
 using Api.Helpers;
 using Api.Interfaces;
 using Api.Services;
+using Api.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -24,6 +25,7 @@ namespace Api.Extensions
             }); 
             services.AddAutoMapper(typeof(AutoMapperProfiles));
 
+            services.AddSingleton<PresenceTracker>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ILikesRepository, LikesRepository>();
