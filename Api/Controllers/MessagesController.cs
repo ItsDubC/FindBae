@@ -44,7 +44,9 @@ namespace Api.Controllers
             {
                 Sender = sender,
                 Recipient = recipient,
-                Content = createMessageDto.Content
+                SenderUsername = sender.UserName,
+                RecipientUsername = recipient.UserName,
+                Content = createMessageDto.Content,
             };
 
             _messageRepository.AddMessage(newMessage);
