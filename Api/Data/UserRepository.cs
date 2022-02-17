@@ -81,5 +81,12 @@ namespace Api.Data
                 .ProjectTo<MemberDto>(_mapper.ConfigurationProvider)
                 .SingleOrDefaultAsync();
         }
+
+        public async Task<string> GetUserGender(string username)
+        {
+            return await _context.Users
+                .Where(x => x.UserName.ToLower() == username.ToLower())
+                .Select(x => x.Gender).FirstOrDefaultAsync();
+        }
     }
 }

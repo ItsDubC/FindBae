@@ -17,5 +17,6 @@ namespace Api.Interfaces
         void Update(AppUser user);
         Task<PagedList<MemberDto>> GetMembersAsync(UserParams userParams);
         Task<MemberDto> GetMemberAsync(string userName);
+        Task<string> GetUserGender(string username);
     }
 }
