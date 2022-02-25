@@ -1,11 +1,12 @@
 <div class="card">
-    <div class="card-body">
+    <div class="card-body"
+        #scrollMe
+        style="overflow-y: scroll; height: 535px"
+        [scrollTop]="scrollMe.scrollHeight">
         <div *ngIf="(messageService.messageThread$ | async).length === 0">
             No DMs yet... hit some people up!
         </div>
-        <ul #scrollMe
-            style="overflow-y: scroll; height: 500px"
-            [scrollTop]="scrollMe.scrollHeight"
+        <ul
             *ngIf="(messageService.messageThread$ | async).length > 0" 
             class="chat">
             <li *ngFor="let m of (messageService.messageThread$ | async)">
@@ -42,8 +43,9 @@
                     placeholder="Send a DM" 
                     [(ngModel)]="messageContent">
                 <div class="input-group-append">
-                    <button class="btn btn-primary btn-sm" type="submit" [disabled]="!messageForm.valid">
+                    <button class="btn btn-primary btn-sm" type="submit" [disabled]="!messageForm.valid || isLoading">
                         <i class="fa fa-paper-plane"></i>
+                        <i *ngIf="isLoading" class="fa fa-spinner fa-spin" ></i>
                     </button>
                 </div>
             </div>
